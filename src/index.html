@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>英语成神之路 - English Mastery</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
+</head>
+<body>
+    <div class="app-container">
+        <!-- 导航栏 -->
+        <nav class="navbar">
+            <div class="nav-brand">
+                <span class="logo">📚</span>
+                <h1>英语成神之路</h1>
+                <span class="subtitle">English Mastery</span>
+            </div>
+            <div class="nav-links">
+                <button class="nav-link active" data-page="add">
+                    <i class="fas fa-plus-circle"></i> 添加单词
+                </button>
+                <button class="nav-link" data-page="list">
+                    <i class="fas fa-list"></i> 单词列表
+                </button>
+                <button class="nav-link" data-page="review">
+                    <i class="fas fa-sync-alt"></i> 闪卡复习
+                </button>
+                <button class="nav-link" data-page="stats">
+                    <i class="fas fa-chart-line"></i> 学习统计
+                </button>
+            </div>
+        </nav>
+
+        <!-- 主要内容区域 -->
+        <main class="main-content">
+            <!-- 添加单词页面 -->
+            <section id="add-page" class="page active">
+                <div class="page-header">
+                    <h2><i class="fas fa-plus-circle"></i> 添加新单词</h2>
+                    <p class="page-description">输入你想要学习的英文单词或短语</p>
+                </div>
+                
+                <div class="card">
+                    <form id="add-word-form">
+                        <div class="form-group">
+                            <label for="word">
+                                <i class="fas fa-font"></i> 英文单词/短语
+                            </label>
+                            <input type="text" id="word" placeholder="例如：serendipity" required>
+                            <div class="form-hint">请输入英文单词或短语</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="meaning">
+                                <i class="fas fa-language"></i> 中文释义
+                            </label>
+                            <input type="text" id="meaning" placeholder="例如：意外发现珍奇事物的本领" required>
+                            <div class="form-hint">请输入对应的中文释义</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="example">
+                                <i class="fas fa-comment-dots"></i> 例句 (可选)
+                            </label>
+                            <textarea id="example" rows="3" placeholder="例如：Finding this book was a real serendipity."></textarea>
+                            <div class="form-hint">可输入英文例句，帮助理解用法</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="tags">
+                                <i class="fas fa-tags"></i> 标签 (可选)
+                            </label>
+                            <input type="text" id="tags" placeholder="例如：形容词, 高级词汇, 日常用语">
+                            <div class="form-hint">用逗号分隔多个标签</div>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> 保存单词
+                            </button>
+                            <button type="reset" class="btn btn-secondary">
+                                <i class="fas fa-redo"></i> 重置表单
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="recent-words">
+                    <h3><i class="fas fa-history"></i> 最近添加</h3>
+                    <div id="recent-words-list" class="words-grid">
+                        <!-- 最近添加的单词会动态显示在这里 -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- 单词列表页面 -->
+            <section id="list-page" class="page">
+                <div class="page-header">
+                    <h2><i class="fas fa-list"></i> 单词总览</h2>
+                    <p class="page-description">查看和管理你所有的单词</p>
+                </div>
+                
+                <div class="search-filter">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="search-input" placeholder="搜索单词或释义...">
+                    </div>
+                    <div class="filter-options">
+                        <select id="tag-filter">
+                            <option value="">所有标签</option>
+                        </select>
+                        <select id="sort-by">
+                            <option value="date-desc">最新添加</option>
+                            <option value="date-asc">最早添加</option>
+                            <option value="word-asc">A-Z 排序</option>
+                            <option value="word-desc">Z-A 排序</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="table-container">
+                        <table id="words-table">
+                            <thead>
+                                <tr>
+                                    <th>单词</th>
+                                    <th>释义</th>
+                                    <th>标签</th>
+                                    <th>添加时间</th>
+                                    <th>掌握程度</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="words-table-body">
+                                <!-- 单词数据会动态显示在这里 -->
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="table-footer">
+                        <div class="table-info">
+                            共 <span id="total-words">0</span> 个单词
+                        </div>
+                        <div class="table-actions">
+                            <button id="export-btn" class="btn btn-outline">
+                                <i class="fas fa-download"></i> 导出数据
+                            </button>
+                            <button id="import-btn" class="btn btn-outline">
+                                <i class="fas fa-upload"></i> 导入数据
+                            </button>
+                            <button id="clear-all-btn" class="btn btn-danger">
+                                <i class="fas fa-trash"></i> 清空所有
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 闪卡复习页面 -->
+            <section id="review-page" class="page">
+                <div class="page-header">
+                    <h2><i class="fas fa-sync-alt"></i> 闪卡复习</h2>
+                    <p class="page-description">通过闪卡测试你的记忆效果</p>
+                </div>
+                
+                <div class="review-controls">
+                    <div class="review-stats">
+                        <div class="stat-card">
+                            <div class="stat-value" id="total-cards">0</div>
+                            <div class="stat-label">总卡片数</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="reviewed-cards">0</div>
+                            <div class="stat-label">已复习</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="mastered-cards">0</div>
+                            <div class="stat-label">已掌握</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="review-progress">0%</div>
+                            <div class="stat-label">进度</div>
+                        </div>
+                    </div>
+                    
+                    <div class="review-settings">
+                        <label>
+                            <input type="checkbox" id="shuffle-cards" checked> 随机顺序
+                        </label>
+                        <select id="review-filter">
+                            <option value="all">所有单词</option>
+                            <option value="need-review">需要复习</option>
+                            <option value="tag">按标签筛选</option>
+                        </select>
+                        <button id="start-review" class="btn btn-primary">
+                            <i class="fas fa-play"></i> 开始复习
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="flashcard-container">
+                    <div class="flashcard" id="flashcard">
+                        <div class="flashcard-front">
+                            <div class="flashcard-content">
+                                <div class="flashcard-word" id="flashcard-word">Loading...</div>
+                                <div class="flashcard-hint">点击卡片查看释义</div>
+                            </div>
+                        </div>
+                        <div class="flashcard-back">
+                            <div class="flashcard-content">
+                                <div class="flashcard-meaning" id="flashcard-meaning">Loading...</div>
+                                <div class="flashcard-example" id="flashcard-example"></div>
+                                <div class="flashcard-tags" id="flashcard-tags"></div>
+                                <div class="flashcard-hint">点击卡片返回</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flashcard-actions">
+                        <button id="card-difficult" class="btn btn-warning">
+                            <i class="fas fa-times-circle"></i> 困难
+                        </button>
+                        <button id="card-flip" class="btn btn-info">
+                            <i class="fas fa-sync-alt"></i> 翻转卡片
+                        </button>
+                        <button id="card-easy" class="btn btn-success">
+                            <i class="fas fa-check-circle"></i> 简单
+                        </button>
+                    </div>
+                    
+                    <div class="flashcard-navigation">
+                        <button id="prev-card" class="btn btn-outline">
+                            <i class="fas fa-chevron-left"></i> 上一个
+                        </button>
+                        <div class="card-counter">
+                            <span id="current-card">0</span> / <span id="total-review-cards">0</span>
+                        </div>
+                        <button id="next-card" class="btn btn-outline">
+                            下一个 <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 学习统计页面 -->
+            <section id="stats-page" class="page">
+                <div class="page-header">
+                    <h2><i class="fas fa-chart-line"></i> 学习统计</h2>
+                    <p class="page-description">查看你的学习进度和成果</p>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card-large">
+                        <div class="stat-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="total-words-stat">0</div>
+                            <div class="stat-label">累计学习单词</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card-large">
+                        <div class="stat-icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="today-added">0</div>
+                            <div class="stat-label">今日新增</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card-large">
+                        <div class="stat-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="mastered-words">0</div>
+                            <div class="stat-label">已掌握单词</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card-large">
+                        <div class="stat-icon">
+                            <i class="fas fa-fire"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="streak-days">0</div>
+                            <div class="stat-label">连续学习天数</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3><i class="fas fa-chart-bar"></i> 学习趋势</h3>
+                    <div class="chart-container">
+                        <canvas id="learning-chart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3><i class="fas fa-tags"></i> 标签分布</h3>
+                    <div id="tags-distribution" class="tags-cloud">
+                        <!-- 标签云会动态显示在这里 -->
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3><i class="fas fa-trophy"></i> 学习成就</h3>
+                    <div id="achievements-list" class="achievements-grid">
+                        <!-- 成就会动态显示在这里 -->
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- 底部信息 -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>英语成神之路 © 2026 - 简约英语学习工具</p>
+                <p class="footer-links">
+                    <span>数据存储在您的浏览器本地，请勿清除浏览器数据</span>
+                    <span id="last-sync">最后同步: 刚刚</span>
+                </p>
+            </div>
+        </footer>
+
+        <!-- 通知消息 -->
+        <div id="notification" class="notification">
+            <div class="notification-content">
+                <span id="notification-message"></span>
+            </div>
+        </div>
+
+        <!-- 确认对话框 -->
+        <div id="confirm-dialog" class="modal">
+            <div class="modal-content">
+                <h3 id="confirm-title">确认操作</h3>
+                <p id="confirm-message">你确定要执行此操作吗？</p>
+                <div class="modal-actions">
+                    <button id="confirm-cancel" class="btn btn-secondary">取消</button>
+                    <button id="confirm-ok" class="btn btn-danger">确定</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 导入数据对话框 -->
+        <div id="import-dialog" class="modal">
+            <div class="modal-content">
+                <h3>导入数据</h3>
+                <p>请选择要导入的数据文件（JSON格式）：</p>
+                <input type="file" id="import-file" accept=".json">
+                <div class="modal-actions">
+                    <button id="import-cancel" class="btn btn-secondary">取消</button>
+                    <button id="import-confirm" class="btn btn-primary">导入</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 脚本文件 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

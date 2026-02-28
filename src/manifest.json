@@ -1,0 +1,58 @@
+{
+  "name": "英语成神之路",
+  "short_name": "EnglishMastery",
+  "description": "简约英语单词学习应用，助你成为英语大神",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#4361ee",
+  "theme_color": "#4361ee",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%234361ee%22>📚</text></svg>",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22white%22>📚</text></svg>",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ],
+  "categories": ["education", "productivity"],
+  "lang": "zh-CN",
+  "dir": "ltr",
+  "prefer_related_applications": false,
+  "related_applications": [],
+  "shortcuts": [
+    {
+      "name": "添加新单词",
+      "short_name": "添加",
+      "description": "快速添加新单词",
+      "url": "/#add",
+      "icons": [{ "src": "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%234361ee%22>➕</text></svg>" }]
+    },
+    {
+      "name": "开始复习",
+      "short_name": "复习",
+      "description": "开始闪卡复习",
+      "url": "/#review",
+      "icons": [{ "src": "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%234361ee%22>🔄</text></svg>" }]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%221200%22 height=%22630%22><rect width=%221200%22 height=%22630%22 fill=%22%234361ee%22/><text x=%22600%22 y=%22315%22 font-size=%2260%22 text-anchor=%22middle%22 fill=%22white%22>英语成神之路</text></svg>",
+      "sizes": "1200x630",
+      "type": "image/svg+xml",
+      "form_factor": "wide"
+    },
+    {
+      "src": "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22750%22 height=%221334%22><rect width=%22750%22 height=%221334%22 fill=%22%234361ee%22/><text x=%22375%22 y=%22667%22 font-size=%2240%22 text-anchor=%22middle%22 fill=%22white%22>英语成神之路</text></svg>",
+      "sizes": "750x1334",
+      "type": "image/svg+xml",
+      "form_factor": "narrow"
+    }
+  ]
+}
